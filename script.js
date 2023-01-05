@@ -3,9 +3,10 @@ const displayOutput = document.querySelector(".display");
 const inputButton = document.querySelectorAll(".num-input");
 const interfaceSelector = document.querySelectorAll(".interface");
 const equalsButton = document.querySelector(".equals");
+const clearButton = document.querySelector(".clear");
 let userInputValue1 = "";
 let userInputValue2 = "";
-let inputToggle = false;
+let threeInputToggle = 0;
 let operatorInput = 0;
 function add(num1, num2) {
   return num1 + num2;
@@ -37,11 +38,15 @@ function operate(operator, num1, num2) {
 function userInput() {
   inputButton.forEach((button) => {
     button.addEventListener("click", (e) => {
-      if (inputToggle === false) {
+        if(threeInputToggle === 2) {
+            displayOutput.textContent = "";
+            threeInputToggle = 0;
+        }
+      if (threeInputToggle === 0) {
         let num = e.target.id;
         userInputValue1 += num;
         displayOutput.textContent = userInputValue1;
-      } else if (inputToggle === true) {
+      } else if (threeInputToggle === 1) {
         let num = e.target.id;
         userInputValue2 += num;
         displayOutput.textContent = userInputValue2;
@@ -54,15 +59,35 @@ function userInterfaceEvent() {
     interface.addEventListener("click", (e) => {
       operatorInput = Number(e.target.id);
       displayOutput.textContent = "";
-      inputToggle = true;
+      threeInputToggle = 1;
     });
   });
 }
 function equalsInput() {
+    equalsButton.addEventListener("click", () => {
+        displayOutput.textContent = ""
+        let evaluatedValue = operate(operatorInput, Number(userInputValue1), Number(userInputValue2));
+        displayOutput.textContent = evaluatedValue.toString();
+        userInputValue1 = "";
+        userInputValue2 = "";
+        threeInputToggle = 2;
 
+    });
+
+
+}
+function clearDisplay() {
+    clearButton.addEventListener("click", () => {
+        displayOutput.textContent = "";
+        userInputValue1 = "";
+        userInputValue2 = "";
+        threeInputToggle = 0;
+    });
 
 }
 userInput();
 userInterfaceEvent();
+equalsInput();
+clearDisplay();
 
 
