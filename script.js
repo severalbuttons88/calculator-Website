@@ -43,16 +43,15 @@ function userInput() {
       if (threeInputToggle === 2) {
         let num = e.target.id;
         if (userInputValue1 === "0" && num === "0") {
-            userInputValue1 = "0";
-          } else if (userInputValue1 === "0" && num !== "0") {
-            userInputValue1 = "";
-            userInputValue1 += num;
-            displayOutput.textContent = userInputValue1;
-          } else {
-            userInputValue1 += num;
-            displayOutput.textContent = userInputValue1;
-          }
-
+          userInputValue1 = "0";
+        } else if (userInputValue1 === "0" && num !== "0") {
+          userInputValue1 = "";
+          userInputValue1 += num;
+          displayOutput.textContent = userInputValue1;
+        } else {
+          userInputValue1 += num;
+          displayOutput.textContent = userInputValue1;
+        }
       }
       if (threeInputToggle === 0) {
         let num = e.target.id;
@@ -69,15 +68,15 @@ function userInput() {
       } else if (threeInputToggle === 1) {
         let num = e.target.id;
         if (userInputValue2 === "0" && num === "0") {
-            userInputValue2 = "0";
-          } else if (userInputValue2 === "0" && num !== "0") {
-            userInputValue2 = "";
-            userInputValue2 += num;
-            displayOutput.textContent = userInputValue2;
-          } else {
-            userInputValue2 += num;
-            displayOutput.textContent = userInputValue2;
-          }
+          userInputValue2 = "0";
+        } else if (userInputValue2 === "0" && num !== "0") {
+          userInputValue2 = "";
+          userInputValue2 += num;
+          displayOutput.textContent = userInputValue2;
+        } else {
+          userInputValue2 += num;
+          displayOutput.textContent = userInputValue2;
+        }
       }
     });
   });
@@ -102,6 +101,9 @@ function equalsInput() {
         Math.round(
           operate(operatorInput, runningTotal, Number(userInputValue1)) * 1000
         ) / 1000;
+        if (runningTotal.toString() === "NaN" || runningTotal.toString() === "Infinity") {
+            return displayOutput.textContent = "ERROR";
+        }
       displayOutput.textContent = runningTotal.toString();
       operatorInput = 0;
       userInputValue1 = "";
@@ -114,11 +116,15 @@ function equalsInput() {
             Number(userInputValue2)
           ) * 1000
         ) / 1000;
+        if (runningTotal.toString() === "NaN" || runningTotal.toString() === "Infinity") {
+            return displayOutput.textContent = "ERROR";
+        }
       displayOutput.textContent = runningTotal.toString();
       operatorInput = 0;
       userInputValue1 = "";
       userInputValue2 = "";
       threeInputToggle = 2;
+      
     }
   });
 }
